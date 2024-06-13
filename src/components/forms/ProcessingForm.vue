@@ -1,21 +1,24 @@
 <template>
     <form>
         <label>Input folder:</label>
-    <input type="input-folder" required v-model="inputFolder">
+        <input type="text" v-model="inputFolder" placeholder="Enter path to input folder">
 
-    <label>Output folder:</label>
-    <input type="output-folder" required v-model="outputFolder">
+        <label>Output folder:</label>
+        <input type="text" v-model="outputFolder" placeholder="Enter path to output folder">
 
-    <Method/>
+        <Method @update-method="handleMethodUpdate"/>
     
 
 
-    <green-button 
-    buttonText="Process"></green-button>
+        <green-button 
+            buttonText="Process"
+            @click="processVideo">
+        </green-button>
 
 
     </form>
-  
+  <p>Input: {{ inputFolder }}</p>
+  <p>Output: {{ outputFolder }}</p>
 </template>
 
 <script>
@@ -23,17 +26,39 @@ import Method from "../inputfields/MethodChoice.vue";
 import GreenButton from "../buttons/GreenCustomButton.vue";
 
 
+
+
 export default {
     components:{
         Method,
         GreenButton,
+      
      
     },
     data() {
         return {
             inputFolder: '',
             outputFolder: '',
+            methodDetails: {}
         }
+    },
+    methods: {
+        handleMethodUpdate(data){
+            this.methodDetails = data;
+            console.log("handleMethods: ", this.methodDetails)
+        },
+        async processVideo() {
+            console.log("Entered processVideo")
+            
+            try {
+                const result = await eel.process_video(this.inputFolder, this.outputFolder, this.methodDetails.method, this.methodDetails.parameters)();
+                console.log('Processing result:', result);
+            } catch (error) {
+                console.error('Error processing video:', error);
+            }
+        },
+        
+
     }
 
 }
