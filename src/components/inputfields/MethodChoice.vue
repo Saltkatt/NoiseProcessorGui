@@ -5,7 +5,8 @@
             <option value="gaussian">Gaussian</option>
             <option value="saltpepper">Salt & Pepper</option>
             <option value="grayscale">Gray</option>
-            <option value="blur">Blur</option>
+            <option value="blurr">Blurr</option>
+            <option value="movingblurr">Moving Blurr</option>
             <option value="obstruction">Obstruction (Rectangle)</option>
         </select>
     </div>
@@ -51,6 +52,14 @@
             <option value="top-center">Top Center</option>
         </select>
     </div>
+    <div v-if="method === 'movingblurr'">
+        <label>Blurr Height (0-100):</label>
+        <input type="bheight" v-model="bheight">
+    </div>
+    <div v-if="method === 'movingblurr'">
+        <label>Blurr Width (0-100):</label>
+        <input type="bwidth" v-model="bwidth">
+    </div>
 </div>
 </template>
 
@@ -66,7 +75,9 @@ export default {
             height: '100',
             width: '50',
             colour: 'green',
-            placement: 'center'
+            placement: 'center',
+            bheight: 'height',
+            bwidth: 'width'
         }
     },
     methods: {
@@ -86,6 +97,13 @@ export default {
                         width: this.width,
                         colour: this.colour,
                         placement: this.placement
+                    };
+                    break;
+                case 'movingblur':
+                    parameters = {
+                        bheight: this.bheight,
+                        bwidth: this.bwidth,
+                       
                     };
                     break;
                 default:
@@ -133,6 +151,16 @@ export default {
         },
         placement() {
             if (this.method === 'shape') {
+                this.emitMethod();
+            }
+        },
+        bheight() {
+            if (this.method === 'movingblur') {
+                this.emitMethod();
+            }
+        },
+        bwidth() {
+            if (this.method === 'movingblur') {
                 this.emitMethod();
             }
         }

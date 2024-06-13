@@ -51,6 +51,8 @@ export default {
             console.log("Entered processVideo")
             
             try {
+                console.log("Method: ", this.methodDetails.method)
+                console.log("Parameters: ", this.methodDetails.parameters)
                 const result = await eel.process_video(this.inputFolder, this.outputFolder, this.methodDetails.method, this.methodDetails.parameters)();
                 console.log('Processing result:', result);
             } catch (error) {
