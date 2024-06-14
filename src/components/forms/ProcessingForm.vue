@@ -17,15 +17,12 @@
 
 
     </form>
-  <p>Input: {{ inputFolder }}</p>
-  <p>Output: {{ outputFolder }}</p>
+
 </template>
 
 <script>
 import Method from "../inputfields/MethodChoice.vue";
 import GreenButton from "../buttons/GreenCustomButton.vue";
-
-
 
 
 export default {

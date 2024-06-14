@@ -52,14 +52,6 @@
             <option value="top-center">Top Center</option>
         </select>
     </div>
-    <div v-if="method === 'movingblurr'">
-        <label>Blurr Height (0-100):</label>
-        <input type="bheight" v-model="bheight">
-    </div>
-    <div v-if="method === 'movingblurr'">
-        <label>Blurr Width (0-100):</label>
-        <input type="bwidth" v-model="bwidth">
-    </div>
 </div>
 </template>
 
@@ -69,15 +61,13 @@ export default {
     data() {
         return {
             method: 'gaussian',
-            sigma: '0-150',
-            salt: '0.01',
-            pepper: '0.01',
-            height: '100',
-            width: '50',
+            sigma: 25,
+            salt: 0.01,
+            pepper: 0.01,
+            height: 100,
+            width: 50,
             colour: 'green',
-            placement: 'center',
-            bheight: 'height',
-            bwidth: 'width'
+            placement: 'center'
         }
     },
     methods: {
@@ -97,13 +87,6 @@ export default {
                         width: this.width,
                         colour: this.colour,
                         placement: this.placement
-                    };
-                    break;
-                case 'movingblur':
-                    parameters = {
-                        bheight: this.bheight,
-                        bwidth: this.bwidth,
-                       
                     };
                     break;
                 default:
@@ -151,16 +134,6 @@ export default {
         },
         placement() {
             if (this.method === 'shape') {
-                this.emitMethod();
-            }
-        },
-        bheight() {
-            if (this.method === 'movingblur') {
-                this.emitMethod();
-            }
-        },
-        bwidth() {
-            if (this.method === 'movingblur') {
                 this.emitMethod();
             }
         }
